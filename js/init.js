@@ -1,9 +1,10 @@
 var volume    = 0;
 var nextPlace = 0;
 var prevPlace = 0;
+var lastMenuItem = "";
 
 
-$(function() {
+//$(function() {
 
   var BV = new $.BigVideo({useFlashForFirefox:false});
   statustext = $("<p>");
@@ -11,13 +12,10 @@ $(function() {
   statustext.addClass('p_status');
   
 
-
-
-
-  
   jQuery(document).ready(function($) {  
+
     resizeImage();
-    resizeMap();  
+    resizeMap();
 
     $("area").click(function(){
       $("#infopanel").fadeOut("slow")
@@ -25,19 +23,26 @@ $(function() {
     })
 
     $("area").hover(function(){
-      $("#infomedia").empty();
-      $("#infotitle").text($(this).attr("title"));
-      if ($(this).attr("media").substr(-3) == "jpg") {
-        $("#infomedia").append("<img src='img/"+$(this).attr("media")+"'' width='200px'>");
-      }
-      else if ($(this).attr("media").substr(-3) == "mp4") {
-        var $v_preview = "<video autoplay width='200px'><source src='vids/"+$(this).attr("media")+"' width='200px' type='video/mp4' /></video>"
-        $("#infomedia").append($v_preview);
-      }
-      //$("#infomedia").text($(this).attr("media"));
 
-      $("#infopanel").css({"margin-left": x, "margin-top":y});
-      $("#infopanel").fadeIn("fast");
+      var title = $(this).attr("alt");
+      if (title != lastMenuItem) {
+        $("#infomedia").empty();
+        // Titel setzen 
+        $("#infotitle").text(title);
+        lastMenuItem = title;
+        // Video einbetten
+        if ($(this).attr("media").substr(-3) == "jpg") {
+          $("#infomedia").append("<img src='img/"+$(this).attr("media")+"'' >");
+        }
+        else if ($(this).attr("media").substr(-3) == "mp4") {
+          var $v_preview = "<video autoplay ><source src='vids/"+$(this).attr("media")+"' type='video/mp4' /></video>"
+          $("#infomedia").append($v_preview);
+        }
+        // Panel platzieren
+        $("#infopanel").css({"margin-left": (x-50), "margin-top":(y-250)});
+        // Panel einblenden
+        $("#infopanel").fadeIn("slow");
+      }
     },  function() {
       //$("#infopanel").fadeOut("fast");
     });
@@ -48,6 +53,8 @@ $(function() {
   jQuery(window).resize(function() {
     resizeImage();
   });
+
+
   
 
   function docustart() {
@@ -126,7 +133,7 @@ $(function() {
   
   
   
-    // Menu for next Videos
+  // Menu for next Videos
 
   function showLinkedVideos() {
     $('#big-video-control-play').css('background-position','0px');
@@ -157,6 +164,8 @@ $(function() {
     $("#content").append($(links)); 
     links.css("top",(($(window).height() - links.height())/2-40)+"px");
   }
+
+
 /*  
   function initListItem(title, url) {
     link = $("<p>");
@@ -171,6 +180,9 @@ $(function() {
     return link
   }
   */
+
+
+
 function initListItem2(video) {
   link = $("<p>");
   link.text(video.title);
@@ -192,99 +204,10 @@ function initListItem2(video) {
 
   
   
-  // CONTROLS
-  
-  //Pause by Keyboard and Mouse
-  function pause() {
-    statustext.css("display","block");
-    statustext.click(pause);
-    if (BV.getPlayer().paused()) {
-      BV.getPlayer().play();
-      showStatus(">",true);
-      playView();
-    }    
-    else {
-      BV.getPlayer().pause();
-      showStatus("II",false);
-    } 
-  }
-  
-  // Keyboard events
-  $(document).keydown(function(e){
-    var j_steps = 5;
-    var v_steps = 0.1;
-    statustext.css("display","block");
-    
-    var duration = BV.getPlayer().duration();
-    var c_time = BV.getPlayer().currentTime();
-    var vol = BV.getPlayer().volume();
-    
-    //alert(e.keyCode);
-    
-    switch(e.which) {
-    	
-        case $.ui.keyCode.ENTER:
-          BV.getPlayer().currentTime(0);
-          BV.getPlayer().play();
-          showStatus("re:>",true);
-          break;
-        
-        case $.ui.keyCode.ESCAPE:
-          showLinkedVideos();
-          showStatus("");
-          break;
-        
-        case $.ui.keyCode.SPACE:
-          pause();
-          break;
-      
-        case $.ui.keyCode.LEFT:
-          BV.getPlayer().currentTime(c_time-j_steps);
-          BV.getPlayer().play();
-          showStatus("<<",true);
-          $('.links').remove();
-          break;
-    
-        case $.ui.keyCode.UP:
-          volume = vol+v_steps;
-          BV.getPlayer().volume(vol+v_steps);
-          setCookie("volume",volume,7);
-          showStatus("vol:"+Math.round(BV.getPlayer().volume()*100)+"%",true);
-          break;
-    
-        case $.ui.keyCode.RIGHT:
-          if((duration-c_time)>=j_steps && c_time != 0) {
-            BV.getPlayer().currentTime(c_time+j_steps);
-            BV.getPlayer().play();
-            showStatus(">>",true);
-            $('.links').remove();
-          }
-          break;
-    
-        case $.ui.keyCode.DOWN:
-          volume = vol-v_steps;
-          setCookie("volume",volume,7);
-          BV.getPlayer().volume(vol-v_steps);
-          showStatus("vol:"+Math.round(BV.getPlayer().volume()*100)+"%",true);
-          break;
-    
-        default: showStatus("");
-    }
-    //e.preventDefault();
-  });
-  
-  
-  
 
   
   
-});
-
-
-
-
-
-
+  
 
 
 $(document).mousemove(function(e) {
@@ -330,11 +253,6 @@ function resizeImage () {
   $("#startmenu").css("height", $document_height + "px");
   $margin_top = ($document_height-$("#startmenu img").height())/2;
   $("#startmenu img").css("margin-top",$margin_top);
-
-  console.log($(window).height());
-  console.log($document_height);
-
-
 }
 
 

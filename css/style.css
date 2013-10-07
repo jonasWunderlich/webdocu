@@ -121,13 +121,20 @@ area:hover {
   /*display: block;*/
   border-radius:5px;
   padding:5px;
+  width:300px;
   min-width:200px;
   min-height:200px;
   background: white;
-  opacity: .8;
+  /*opacity: .8;*/
 }
 
 #infopanel * {
   padding: 0;
   margin: 0; 
+}
+
+
+#infomedia img,
+#infomedia video {
+  width:300px;
 }
