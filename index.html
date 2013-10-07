@@ -13,27 +13,35 @@
   	<script src="js/bib/video-js/video.js"></script>
 	<script src="js/bib/bigvideo.js"></script>
   	
+
   	<script src="js/data.js"></script>
+  	<script src="js/cookieData.js"></script>
 	<script src="js/init.js"></script>
 	<!--<script type="text/javascript" src="js/video.js"></script>-->
 </head>
 
 <body> 
 
-<div style="text-align:center"> 
-  <!--<button id="b_big">Big</button>
-  <button id="b_small" onclick="makeSmall()">Small</button>-->
-  <!--<button id="b_jump">Jump</button>-->
-  <div id="p_status"></div>
-  <div id="content">
-	  <!--<video id="video" width="420">
-		<source src="mov_bbb.mp4" type="video/mp4">
-		<source src="mov_bbb.ogg" type="video/ogg">
-		Your browser does not support HTML5 video.
-	  </video>-->
-  </div>
-</div> 
+	<div style="text-align:center"> 
+	  <div id="p_status"></div>
+	  <div id="content"></div>
+	</div> 
 
+	<div id="startmenu" class="wraptocenter">
+	  	<img src="img/hochhaus_intro_2.jpg" width="100%" border="0" alt="Menü" usemap="#start_map">
+	  	<map id="map_ID" name="start_map">
+	  		<area class="r1" href="#route1" shape="poly" border="0" width="100%" media="13_10_7UweIntroBild.mp4" alt="Route 1" title="Route 1" coords="131,534,130,633,239,639,280,630,284,529" />
+	  		<area class="r2" href="#route2" shape="poly" border="0" width="100%" media="13_10_7IntroBildTanzplatz.mp4" alt="Route 2" title="Route 2" coords="833,620,830,709,934,712,933,624" />
+	  		<area class="r3" href="#route3" shape="poly" border="0" width="100%" media="13_10_7IntroBildModells.mp4" alt="Route 3" title="Route 3" coords="1063,745,1060,877,1163,883,1162,739" />
+	  		<area class="r4" href="#route4" shape="poly" border="0" width="100%" media="galerie.jpg" alt="Route 4" title="Route 4" coords="1251,528,1253,573,1435,574,1434,531" />
+	  		<area class="r5" href="#route5" shape="poly" border="0" width="100%" media="bibo.jpg" alt="In die Metro steigen" title="In die Metro steigen" coords="1441,1077,1408,1010,1413,919,1456,920,1570,1050,1532,1057,1529,1076" />
+		</map>	
+	</div>
+
+	<div id="infopanel">
+		<h2 id="infotitle"></h2>
+		<div id="infomedia"></div>
+	</div>
 
 </body> 
 </html>

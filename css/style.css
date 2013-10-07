@@ -1,15 +1,21 @@
+html, body {
+  height:100%;  
+  overflow: hidden;
+}
+
+
 body {
 	background:rgb(119, 117, 118);
 	margin:0;padding:0;
-	font: 0.8em/165% "Lucida Grande","Lucida Sans Unicode",Segoe UI,Helvetica,Arial,sans-serif
+	font: 0.8em/165% "Lucida Grande","Lucida Sans Unicode",Segoe UI,Helvetica,Arial,sans-serif;
 }
 
 * {
--webkit-user-select: none;
--khtml-user-select: none;
--moz-user-select: -moz-none;
--o-user-select: none;
-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
 }
 
 
@@ -50,4 +56,78 @@ user-select: none;
 	/*display:none;*/
 	z-index: 8;
 	cursor:default;
+}
+
+/*
+#startmenu {
+  min-height: 10em;
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+}
+
+#startmenu img {
+  vertical-align: middle;
+}
+*/
+/*
+.wraptocenter {
+  position: absolute;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+}
+.wraptocenter * {
+  vertical-align: middle;
+  text-align: center;
+  display:block;
+  margin: 0 auto;
+}
+*/
+
+
+.wraptocenter {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.wraptocenter * {
+}
+
+
+
+
+area:hover {
+  border:4px solid green;
+  background: green;
+}
+
+.r1:hover {
+  background: green;
+}
+
+.area1:hover {
+  background:green;
+}
+
+
+
+#infopanel {
+  position:fixed;
+  z-index: 10;
+  display:none;
+  /*display: block;*/
+  border-radius:5px;
+  padding:5px;
+  min-width:200px;
+  min-height:200px;
+  background: white;
+  opacity: .8;
+}
+
+#infopanel * {
+  padding: 0;
+  margin: 0; 
 }

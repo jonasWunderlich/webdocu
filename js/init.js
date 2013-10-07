@@ -1,3 +1,4 @@
+var volume    = 0;
 var nextPlace = 0;
 var prevPlace = 0;
 
@@ -9,11 +10,52 @@ $(function() {
   statustext.text("loading...");
   statustext.addClass('p_status');
   
-  var volume = 0.5;
+
+
+
+
   
   jQuery(document).ready(function($) {  
-      
-      //initialise Statusbox
+    resizeImage();
+    resizeMap();  
+
+    $("area").click(function(){
+      $("#infopanel").fadeOut("slow")
+      $("#startmenu").fadeOut("slow",docustart());
+    })
+
+    $("area").hover(function(){
+      $("#infomedia").empty();
+      $("#infotitle").text($(this).attr("title"));
+      if ($(this).attr("media").substr(-3) == "jpg") {
+        $("#infomedia").append("<img src='img/"+$(this).attr("media")+"'' width='200px'>");
+      }
+      else if ($(this).attr("media").substr(-3) == "mp4") {
+        var $v_preview = "<video autoplay width='200px'><source src='vids/"+$(this).attr("media")+"' width='200px' type='video/mp4' /></video>"
+        $("#infomedia").append($v_preview);
+      }
+      //$("#infomedia").text($(this).attr("media"));
+
+      $("#infopanel").css({"margin-left": x, "margin-top":y});
+      $("#infopanel").fadeIn("fast");
+    },  function() {
+      //$("#infopanel").fadeOut("fast");
+    });
+
+  });
+
+
+  jQuery(window).resize(function() {
+    resizeImage();
+  });
+  
+
+  function docustart() {
+
+      $("content").show();
+      $("#big-video-wrap").show();
+
+          //initialise Statusbox
       $("#p_status").append($(statustext));
       statustext.css("top",(($(window).height() - statustext.height())/2)+"px");
       
@@ -27,6 +69,8 @@ $(function() {
       BV.show(firstVideoUrl,{ambient:false, altSource:'vids/river.ogv'});
 
       //BV.show('vids/river.mp4',{ambient:false, altSource:'vids/river.ogv'});
+      var volume = getVolume();
+      console.log(volume)
       BV.getPlayer().volume(volume);
       BV.getPlayer().loop(false);
       //BV.getPlayer().pause();
@@ -46,9 +90,7 @@ $(function() {
      
       // Mouse-Click-Event
       $("#big-video-wrap").click(pause);
-        
-  });
-  
+  }
 
 
   
@@ -90,7 +132,7 @@ $(function() {
     $('#big-video-control-play').css('background-position','0px');
     $('.links').remove();
     BV.getPlayer().pause();
-    links = $("<div>");
+    var links = $("<div>");
     links.addClass("links");
 
     for(var i=0; i<videos.length; i++) {
@@ -99,16 +141,17 @@ $(function() {
         //console.log(videos[i].title);
       }
     }
-/*
-    links.append($(initListItem("Imaginary Forces", "vids/Chrome_ImF.mp4")));
-    links.append($(initListItem("Tron", "vids/tron.mp4")));
-    links.append($(initListItem("Tron Legacy", "http://movies.apple.com/media/us/html5/showcase/2011/demos/apple-html5-demo-tron-us_848x352.m4v")));
-    
-    links.append($(initListItem("Bick Buck Bunny", "vids/big_buck_bunny_480p_h264.mov")));
-    links.append($(initListItem("VimeoPro Video in SD", "http://player.vimeo.com/external/35713812.sd.mp4?s=127f879fc781ae7e62049696679e5615")));
-    links.append($(initListItem("VimeoPro Video in HD", "http://player.vimeo.com/external/35713812.sd.mp4?s=127f879fc781ae7e62049696679e5615")));
-    links.append($(initListItem("Dragon", "http://content.bitsontherun.com/videos/q1fx20VZ-52qL9xLP.mp4")));
-*/
+    var menu_link = $("<p>");
+    menu_link.text("Menü");
+    menu_link.addClass("link_mainmenu")
+    links.append(menu_link);
+    menu_link.on( "click", function() {
+        $("#startmenu").fadeIn("slow");
+        $("content").hide();
+        $("#big-video-wrap").hide();
+    });
+
+
 
 
     $("#content").append($(links)); 
@@ -143,7 +186,7 @@ function initListItem2(video) {
     //BV.getPlayer().pause();
     //BV.getPlayer().addEvent("progress", bufferVideo);
   })
-  return link
+  return link;
 }
   
 
@@ -205,6 +248,7 @@ function initListItem2(video) {
         case $.ui.keyCode.UP:
           volume = vol+v_steps;
           BV.getPlayer().volume(vol+v_steps);
+          setCookie("volume",volume,7);
           showStatus("vol:"+Math.round(BV.getPlayer().volume()*100)+"%",true);
           break;
     
@@ -219,6 +263,7 @@ function initListItem2(video) {
     
         case $.ui.keyCode.DOWN:
           volume = vol-v_steps;
+          setCookie("volume",volume,7);
           BV.getPlayer().volume(vol-v_steps);
           showStatus("vol:"+Math.round(BV.getPlayer().volume()*100)+"%",true);
           break;
@@ -240,6 +285,12 @@ function initListItem2(video) {
 
 
 
+
+
+$(document).mousemove(function(e) {
+    window.x = e.pageX;
+    window.y = e.pageY;
+});
 
 
 
@@ -272,3 +323,48 @@ function initListItem2(video) {
     }
   }*/
 
+
+
+function resizeImage () {
+  $document_height = $(window).height()
+  $("#startmenu").css("height", $document_height + "px");
+  $margin_top = ($document_height-$("#startmenu img").height())/2;
+  $("#startmenu img").css("margin-top",$margin_top);
+
+  console.log($(window).height());
+  console.log($document_height);
+
+
+}
+
+
+
+function resizeMap () {
+  var ImageMap = function (map) {
+    var n,
+        areas = map.getElementsByTagName('area'),
+        len = areas.length,
+        coords = [],
+        previousWidth = 1920;
+        for (n = 0; n < len; n++) {
+          coords[n] = areas[n].coords.split(',');
+        }
+        this.resize = function () {
+            var n, m, clen,
+                x = document.body.clientWidth / previousWidth;
+            for (n = 0; n < len; n++) {
+                clen = coords[n].length;
+                for (m = 0; m < clen; m++) {
+                    coords[n][m] *= x;
+                }
+                areas[n].coords = coords[n].join(',');
+            }
+            previousWidth = document.body.clientWidth;
+            return true;
+        };
+        window.onresize = this.resize;
+    },
+    imageMap = new ImageMap(document.getElementById('map_ID'));
+  imageMap.resize();
+  return;
+}
