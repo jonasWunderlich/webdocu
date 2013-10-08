@@ -97,14 +97,16 @@ body {
 
 
 
-#fastcontact {
+#fastcontact,
+#button_mainmenu {
   position: absolute;
   top: 3em;
   right: 0;
   text-align: center;
   z-index: 40;
 }
-#fastcontact > div, #fastcontact .line {
+#fastcontact > div, #fastcontact .line,
+#button_mainmenu > div, #button_mainmenu .line {
   text-decoration: none;
   color: #FFF;
   margin: 0;
@@ -117,7 +119,8 @@ body {
   margin-left: .8em;
   padding:0;
 }
-#fastcontact > div.mail {
+#fastcontact > div.mail,
+#button_mainmenu > div.button {
   padding: .5em;
   background: #FFF;
   color: #000;
@@ -156,4 +159,18 @@ body {
 }
 #fastcontact #impressum a:hover{
   color: #5AA9FF;
+}
+
+
+.clear {
+  clear:both;
+}
+.line {
+  width:2em;
+  height:1px;
+  background: #FFF;
+}
+
+#button_mainmenu {
+  top: 10em;
 }

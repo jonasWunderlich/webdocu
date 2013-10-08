@@ -71,12 +71,13 @@ function pause() {
   statustext.click(pause);
   if (BV.getPlayer().paused()) {
     BV.getPlayer().play();
-    showStatus(">",true);
+    //showStatus(">",true);
+    showStatus("",true);
     playView();
   }    
   else {
     BV.getPlayer().pause();
-    showStatus("II",false);
+    //showStatus("II",false);
   } 
 }
 

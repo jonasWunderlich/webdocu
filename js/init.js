@@ -20,20 +20,19 @@ jQuery(document).ready(function($) {
     $("#impressum").toggle();
   })
 
-  //addCastForwardLinks();
-
   $("#menupic").load(function() {
     resizeImage();
     resizeMap();
     $(this).animate({opacity:1},2000);
   });  
 
+  /*
   $("area").click(function(){
     $("#infopanel").fadeOut("slow")
     $("#startmenu").fadeOut("slow",docustart());
-  })
+  });*/
 
-  $("area").hover(function(){
+  $("area").click(function(){
 
     var title = $(this).attr("alt");
     if (title != lastMenuItem) {
@@ -54,9 +53,20 @@ jQuery(document).ready(function($) {
       // Panel einblenden
       $("#infopanel").fadeIn("slow");
     }
-  },  function() {
-    //$("#infopanel").fadeOut("fast");
   });
+
+  $("#infopanel").on( "click", function() {
+    $("#infopanel").fadeOut("slow")
+    $("#startmenu").fadeOut("slow",docustart());
+  });
+
+  $("#button_mainmenu").on( "click", function() {
+      $("#startmenu").fadeIn("slow");
+      $("#big-video-wrap").hide();
+      $("#big-video-control-container").hide();
+      BV.getPlayer().pause();
+  });
+
 
 });
 
