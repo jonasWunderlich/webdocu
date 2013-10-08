@@ -1,13 +1,14 @@
 html, body {
   height:100%;  
   overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
 }
 
 
 body {
-	background:rgb(119, 117, 118);
+	background:#000;
 	margin:0;padding:0;
-	font: 0.8em/165% "Lucida Grande","Lucida Sans Unicode",Segoe UI,Helvetica,Arial,sans-serif;
+	/*font: 0.8em/165% "Lucida Grande","Lucida Sans Unicode",Segoe UI,Helvetica,Arial,sans-serif;*/
 }
 
 * {
@@ -25,6 +26,7 @@ body {
 }
 
 
+/* Video-Controls */
 .links {
   position:fixed;
   width:60%;
@@ -42,9 +44,6 @@ body {
   background:rgba(246, 255, 144, 0.71);
 }
 
-
-
-
 .p_status {
   margin:0 20%;
   width:60%;
@@ -58,34 +57,7 @@ body {
 	cursor:default;
 }
 
-/*
-#startmenu {
-  min-height: 10em;
-  display: table-cell;
-  vertical-align: middle;
-  height: 100%;
-}
 
-#startmenu img {
-  vertical-align: middle;
-}
-*/
-/*
-.wraptocenter {
-  position: absolute;
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
-  width: 100%;
-  height: 100%;
-}
-.wraptocenter * {
-  vertical-align: middle;
-  text-align: center;
-  display:block;
-  margin: 0 auto;
-}
-*/
 
 
 .wraptocenter {
@@ -96,23 +68,9 @@ body {
 .wraptocenter * {
 }
 
-
-
-
-area:hover {
-  border:4px solid green;
-  background: green;
+#menupic {
+  opacity: 0;
 }
-
-.r1:hover {
-  background: green;
-}
-
-.area1:hover {
-  background:green;
-}
-
-
 
 #infopanel {
   position:fixed;
@@ -127,14 +85,75 @@ area:hover {
   background: white;
   /*opacity: .8;*/
 }
-
 #infopanel * {
   padding: 0;
   margin: 0; 
 }
-
-
 #infomedia img,
 #infomedia video {
   width:300px;
+}
+
+
+
+
+#fastcontact {
+  position: absolute;
+  top: 3em;
+  right: 0;
+  text-align: center;
+  z-index: 40;
+}
+#fastcontact > div, #fastcontact .line {
+  text-decoration: none;
+  color: #FFF;
+  margin: 0;
+  padding: .1em;
+  font-size: .7em;
+  display: block;
+  line-height: 1em;
+}
+#fastcontact .line {
+  margin-left: .8em;
+  padding:0;
+}
+#fastcontact > div.mail {
+  padding: .5em;
+  background: #FFF;
+  color: #000;
+  font-style: italic;
+  font-size: 1em;
+  margin-bottom: .2em;
+}
+#fastcontact #impressum {
+  display: none;
+  width: 350px;
+  z-index: 50;
+  position: fixed;
+  right: 0;
+  background: #2B2B2B;
+  color: #FFF;
+  padding: 50px 40px;
+  font-family: "Open Sans";
+  font-size: .9em;
+  line-height: 1.2em;
+  font-weight: 300;
+}
+#fastcontact #impressum strong{
+  font-weight: 600;
+  font-size: 1.2em;
+}
+#fastcontact #impressum p{
+  color: #FFF;
+}
+#fastcontact #impressum h4{
+  margin: 0;
+}
+#fastcontact #impressum a{
+  font-weight: 600;
+  font-size: 1.3em;
+  color: #A8A8A8;
+}
+#fastcontact #impressum a:hover{
+  color: #5AA9FF;
 }

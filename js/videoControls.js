@@ -219,3 +219,18 @@ function initListItem2(video) {
 
 
 
+/*
+function bufferVideo() {
+  console.log("__"+this.buffered().end(0));
+  if(this.buffered().end(0) > 0) {
+    var progress = Math.round(this.buffered().end(0) / this.duration()*100);
+    console.log(progress);
+    statustext.text(progress);
+    
+    if((progress>7) && (progress<=100) && this.paused()) {
+      BV.getPlayer().play();
+      console.log(this.paused());
+      BV.getPlayer().removeEvent("progress", bufferVideo);
+    }
+  }
+}*/

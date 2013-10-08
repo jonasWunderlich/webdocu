@@ -4,15 +4,29 @@ var prevPlace = 0;
 var lastMenuItem = "";
 
 
+$(document).mousemove(function(e) {
+    window.x = e.pageX;
+    window.y = e.pageY;
+});
+
 jQuery(window).resize(function() {
   resizeImage();
 });
 
-
 jQuery(document).ready(function($) {  
 
-  resizeImage();
-  resizeMap();
+  $("#fastcontact").click(function() {
+    console.log("sdf");
+    $("#impressum").toggle();
+  })
+
+  //addCastForwardLinks();
+
+  $("#menupic").load(function() {
+    resizeImage();
+    resizeMap();
+    $(this).animate({opacity:1},2000);
+  });  
 
   $("area").click(function(){
     $("#infopanel").fadeOut("slow")
@@ -32,7 +46,7 @@ jQuery(document).ready(function($) {
         $("#infomedia").append("<img src='img/"+$(this).attr("media")+"'' >");
       }
       else if ($(this).attr("media").substr(-3) == "mp4") {
-        var $v_preview = "<video autoplay ><source src='vids/"+$(this).attr("media")+"' type='video/mp4' /></video>"
+        var $v_preview = "<video autoplay loop><source src='vids/"+$(this).attr("media")+"' type='video/mp4' /></video>"
         $("#infomedia").append($v_preview);
       }
       // Panel platzieren
@@ -47,13 +61,14 @@ jQuery(document).ready(function($) {
 });
 
 
-  
-// Bild skalieren und mittig platzieren
+
+
+// Bild skalieren und mittig platzieren 
 function resizeImage () {
   $document_height = $(window).height()
+  $margin_top = ($document_height-$("#menupic").height())/2;
   $("#startmenu").css("height", $document_height + "px");
-  $margin_top = ($document_height-$("#startmenu img").height())/2;
-  $("#startmenu img").css("margin-top",$margin_top);
+  $("#menupic").css("margin-top",$margin_top);
 }
 
 // Map-Areas mitskalieren
@@ -116,10 +131,6 @@ function resizeMap () {
   
 
 
-$(document).mousemove(function(e) {
-    window.x = e.pageX;
-    window.y = e.pageY;
-});
 
 
 
@@ -136,21 +147,6 @@ $(document).mousemove(function(e) {
 
 
 
-  /*
-function bufferVideo() {
-  console.log("__"+this.buffered().end(0));
-  if(this.buffered().end(0) > 0) {
-    var progress = Math.round(this.buffered().end(0) / this.duration()*100);
-    console.log(progress);
-    statustext.text(progress);
-    
-    if((progress>7) && (progress<=100) && this.paused()) {
-      BV.getPlayer().play();
-      console.log(this.paused());
-      BV.getPlayer().removeEvent("progress", bufferVideo);
-    }
-  }
-}*/
 
 
 
