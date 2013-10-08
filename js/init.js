@@ -4,202 +4,108 @@ var prevPlace = 0;
 var lastMenuItem = "";
 
 
-//$(function() {
-
-  var BV = new $.BigVideo({useFlashForFirefox:false});
-  statustext = $("<p>");
-  statustext.text("loading...");
-  statustext.addClass('p_status');
-  
-
-  jQuery(document).ready(function($) {  
-
-    resizeImage();
-    resizeMap();
-
-    $("area").click(function(){
-      $("#infopanel").fadeOut("slow")
-      $("#startmenu").fadeOut("slow",docustart());
-    })
-
-    $("area").hover(function(){
-
-      var title = $(this).attr("alt");
-      if (title != lastMenuItem) {
-        $("#infomedia").empty();
-        // Titel setzen 
-        $("#infotitle").text(title);
-        lastMenuItem = title;
-        // Video einbetten
-        if ($(this).attr("media").substr(-3) == "jpg") {
-          $("#infomedia").append("<img src='img/"+$(this).attr("media")+"'' >");
-        }
-        else if ($(this).attr("media").substr(-3) == "mp4") {
-          var $v_preview = "<video autoplay ><source src='vids/"+$(this).attr("media")+"' type='video/mp4' /></video>"
-          $("#infomedia").append($v_preview);
-        }
-        // Panel platzieren
-        $("#infopanel").css({"margin-left": (x-50), "margin-top":(y-250)});
-        // Panel einblenden
-        $("#infopanel").fadeIn("slow");
-      }
-    },  function() {
-      //$("#infopanel").fadeOut("fast");
-    });
-
-  });
+jQuery(window).resize(function() {
+  resizeImage();
+});
 
 
-  jQuery(window).resize(function() {
-    resizeImage();
-  });
+jQuery(document).ready(function($) {  
 
+  resizeImage();
+  resizeMap();
 
-  
-
-  function docustart() {
-
-      $("content").show();
-      $("#big-video-wrap").show();
-
-          //initialise Statusbox
-      $("#p_status").append($(statustext));
-      statustext.css("top",(($(window).height() - statustext.height())/2)+"px");
-      
-      //initialise first Video
-      BV.init();
-
-      var firstVideoUrl = 'vids/'+videos[0].media;
-      nextPlace = videos[0].endPos;
-      prevPlace = videos[0].startPos;
-
-      BV.show(firstVideoUrl,{ambient:false, altSource:'vids/river.ogv'});
-
-      //BV.show('vids/river.mp4',{ambient:false, altSource:'vids/river.ogv'});
-      var volume = getVolume();
-      console.log(volume)
-      BV.getPlayer().volume(volume);
-      BV.getPlayer().loop(false);
-      //BV.getPlayer().pause();
-              
-      //initialise eventListeners    
-      //BV.getPlayer().addEvent("timeupdate", bufferVideo);
-      BV.getPlayer().addEvent("loadeddata", loadedView);
-      BV.getPlayer().addEvent("play", playView);
-      BV.getPlayer().addEvent("pause", pauseView);
-      BV.getPlayer().addEvent("ended", showLinkedVideos);
-      
-      BV.getPlayer().addEvent("loadstart", function() {
-        statustext.css("display","block");
-        statustext.text("lädt");
-        $('#big-video-control-progress').width(0);
-      });
-     
-      // Mouse-Click-Event
-      $("#big-video-wrap").click(pause);
-  }
-
-
-  
-
-  
-
-
-
-  function playView() {
-    $('#big-video-control-play').css('background-position','-36px');
-    $('.links').remove();
-  }
-
-  function loadedView() {
-    $('#big-video-control-play').css('background-position','-36px');
-    $('.links').remove();
-    statustext.fadeOut(400, null);
-  }
-    
-  function pauseView() {
-    $('#big-video-control-play').css('background-position','0px');
-  }
-  
-  function showStatus(text,fade) {
-    statustext.text(text);
-    if(fade)
-      statustext.fadeOut(400, null);
-  }
-  
-  
-  
-  
-  
-  
-  
-  // Menu for next Videos
-
-  function showLinkedVideos() {
-    $('#big-video-control-play').css('background-position','0px');
-    $('.links').remove();
-    BV.getPlayer().pause();
-    var links = $("<div>");
-    links.addClass("links");
-
-    for(var i=0; i<videos.length; i++) {
-      if (nextPlace == videos[i].startPos) {
-        links.append($(initListItem2(videos[i])));
-        //console.log(videos[i].title);
-      }
-    }
-    var menu_link = $("<p>");
-    menu_link.text("Menü");
-    menu_link.addClass("link_mainmenu")
-    links.append(menu_link);
-    menu_link.on( "click", function() {
-        $("#startmenu").fadeIn("slow");
-        $("content").hide();
-        $("#big-video-wrap").hide();
-    });
-
-
-
-
-    $("#content").append($(links)); 
-    links.css("top",(($(window).height() - links.height())/2-40)+"px");
-  }
-
-
-/*  
-  function initListItem(title, url) {
-    link = $("<p>");
-    link.text(title);
-    link.click(function() {
-      $('.links').remove();
-      BV.show(url,{ambient:false});
-      BV.getPlayer().volume(volume);
-      //BV.getPlayer().pause();
-      //BV.getPlayer().addEvent("progress", bufferVideo);
-    })
-    return link
-  }
-  */
-
-
-
-function initListItem2(video) {
-  link = $("<p>");
-  link.text(video.title);
-
-  console.log(video.media);
-
-  link.click(function() {
-    nextPlace = video.endPos;
-    prevPlace = video.startPos;
-    $('.links').remove();
-    BV.show('vids/'+video.media,{ambient:false});
-    BV.getPlayer().volume(volume);
-    //BV.getPlayer().pause();
-    //BV.getPlayer().addEvent("progress", bufferVideo);
+  $("area").click(function(){
+    $("#infopanel").fadeOut("slow")
+    $("#startmenu").fadeOut("slow",docustart());
   })
-  return link;
+
+  $("area").hover(function(){
+
+    var title = $(this).attr("alt");
+    if (title != lastMenuItem) {
+      $("#infomedia").empty();
+      // Titel setzen 
+      $("#infotitle").text(title);
+      lastMenuItem = title;
+      // Video einbetten
+      if ($(this).attr("media").substr(-3) == "jpg") {
+        $("#infomedia").append("<img src='img/"+$(this).attr("media")+"'' >");
+      }
+      else if ($(this).attr("media").substr(-3) == "mp4") {
+        var $v_preview = "<video autoplay ><source src='vids/"+$(this).attr("media")+"' type='video/mp4' /></video>"
+        $("#infomedia").append($v_preview);
+      }
+      // Panel platzieren
+      $("#infopanel").css({"margin-left": (x-50), "margin-top":(y-250)});
+      // Panel einblenden
+      $("#infopanel").fadeIn("slow");
+    }
+  },  function() {
+    //$("#infopanel").fadeOut("fast");
+  });
+
+});
+
+
+  
+// Bild skalieren und mittig platzieren
+function resizeImage () {
+  $document_height = $(window).height()
+  $("#startmenu").css("height", $document_height + "px");
+  $margin_top = ($document_height-$("#startmenu img").height())/2;
+  $("#startmenu img").css("margin-top",$margin_top);
 }
+
+// Map-Areas mitskalieren
+function resizeMap () {
+  var ImageMap = function (map) {
+    var n,
+        areas = map.getElementsByTagName('area'),
+        len = areas.length,
+        coords = [],
+        previousWidth = 1920;
+        for (n = 0; n < len; n++) {
+          coords[n] = areas[n].coords.split(',');
+        }
+        this.resize = function () {
+            var n, m, clen,
+                x = document.body.clientWidth / previousWidth;
+            for (n = 0; n < len; n++) {
+                clen = coords[n].length;
+                for (m = 0; m < clen; m++) {
+                    coords[n][m] *= x;
+                }
+                areas[n].coords = coords[n].join(',');
+            }
+            previousWidth = document.body.clientWidth;
+            return true;
+        };
+        window.onresize = this.resize;
+    },
+    imageMap = new ImageMap(document.getElementById('map_ID'));
+  imageMap.resize();
+  return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
   
 
   
@@ -230,59 +136,21 @@ $(document).mousemove(function(e) {
 
 
 
-    /*
-  function bufferVideo() {
-    console.log("__"+this.buffered().end(0));
-    if(this.buffered().end(0) > 0) {
-      var progress = Math.round(this.buffered().end(0) / this.duration()*100);
-      console.log(progress);
-      statustext.text(progress);
-      
-      if((progress>7) && (progress<=100) && this.paused()) {
-        BV.getPlayer().play();
-        console.log(this.paused());
-        BV.getPlayer().removeEvent("progress", bufferVideo);
-      }
+  /*
+function bufferVideo() {
+  console.log("__"+this.buffered().end(0));
+  if(this.buffered().end(0) > 0) {
+    var progress = Math.round(this.buffered().end(0) / this.duration()*100);
+    console.log(progress);
+    statustext.text(progress);
+    
+    if((progress>7) && (progress<=100) && this.paused()) {
+      BV.getPlayer().play();
+      console.log(this.paused());
+      BV.getPlayer().removeEvent("progress", bufferVideo);
     }
-  }*/
+  }
+}*/
 
 
 
-function resizeImage () {
-  $document_height = $(window).height()
-  $("#startmenu").css("height", $document_height + "px");
-  $margin_top = ($document_height-$("#startmenu img").height())/2;
-  $("#startmenu img").css("margin-top",$margin_top);
-}
-
-
-
-function resizeMap () {
-  var ImageMap = function (map) {
-    var n,
-        areas = map.getElementsByTagName('area'),
-        len = areas.length,
-        coords = [],
-        previousWidth = 1920;
-        for (n = 0; n < len; n++) {
-          coords[n] = areas[n].coords.split(',');
-        }
-        this.resize = function () {
-            var n, m, clen,
-                x = document.body.clientWidth / previousWidth;
-            for (n = 0; n < len; n++) {
-                clen = coords[n].length;
-                for (m = 0; m < clen; m++) {
-                    coords[n][m] *= x;
-                }
-                areas[n].coords = coords[n].join(',');
-            }
-            previousWidth = document.body.clientWidth;
-            return true;
-        };
-        window.onresize = this.resize;
-    },
-    imageMap = new ImageMap(document.getElementById('map_ID'));
-  imageMap.resize();
-  return;
-}

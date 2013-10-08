@@ -38,3 +38,9 @@ function getCookie(c_name) {
   }
   return c_value;
 }
+
+
+$(document).mousemove(function(e) {
+    window.x = e.pageX;
+    window.y = e.pageY;
+});
