@@ -20,7 +20,7 @@ var videos = [
 	},
 	{
 		id:1,
-		startPos:1,
+		startPos:[1], //1
 		endPos:1,
 		title:'Freie Bibliothek besuchen',
 		text:'Bechreibung zum video',

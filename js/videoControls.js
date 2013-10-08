@@ -4,7 +4,7 @@ statustext.text("loading...");
 statustext.addClass('p_status');
 
 var j_steps = 10;
-var v_steps = 0.1;
+var v_steps = 0.2;
 
 
 
@@ -31,7 +31,6 @@ function docustart() {
 
     //BV.show('vids/river.mp4',{ambient:false, altSource:'vids/river.ogv'});
     var volume = getVolume();
-    console.log(volume)
     BV.getPlayer().volume(volume);
     BV.getPlayer().loop(false);
     //BV.getPlayer().pause();
@@ -107,32 +106,12 @@ $(document).keydown(function(e){
       case $.ui.keyCode.SPACE:
         pause();
         break;
-    
-      case $.ui.keyCode.LEFT:
-        BV.getPlayer().currentTime(c_time-j_steps);
-        BV.getPlayer().play();
-        showStatus("<<",true);
-        $('.links').remove();
-        break;
   
       case $.ui.keyCode.UP:
         volume = vol+v_steps;
         BV.getPlayer().volume(vol+v_steps);
         setCookie("volume",volume,7);
         showStatus("vol:"+Math.round(BV.getPlayer().volume()*100)+"%",true);
-        break;
-  
-      case $.ui.keyCode.RIGHT:
-        if((duration-c_time)>=j_steps && c_time != 0) {
-          BV.getPlayer().currentTime(c_time+j_steps);
-          BV.getPlayer().play();
-          showStatus(">>",true);
-          $('.links').remove();
-          console.log(duration);
-        } else {
-          showLinkedVideos();
-          showStatus("");
-        }
         break;
   
       case $.ui.keyCode.DOWN:
@@ -177,14 +156,27 @@ function showLinkedVideos() {
   $('#big-video-control-play').css('background-position','0px');
   $('.links').remove();
   BV.getPlayer().pause();
+  $("#big-video-control-container").hide();
   var links = $("<div>");
   links.addClass("links");
 
   for(var i=0; i<videos.length; i++) {
-    if (nextPlace == videos[i].startPos) {
-      links.append($(initListItem2(videos[i])));
+    startPositions = videos[i].startPos;    
+    if (startPositions.length == undefined) {
+      if (nextPlace == videos[i].startPos) {
+        links.append($(initListItem2(videos[i])));
+      }
     }
+    else {
+      for(var s=0; s<startPositions.length; s++) {
+        if (nextPlace == startPositions[s]) {
+          links.append($(initListItem2(videos[s])));
+        }
+      }
+    }
+
   }
+
   var menu_link = $("<p>");
   menu_link.text("Menü");
   menu_link.addClass("link_mainmenu")
@@ -202,8 +194,6 @@ function showLinkedVideos() {
 function initListItem2(video) {
   link = $("<p>");
   link.text(video.title);
-
-  console.log(video.media);
 
   link.click(function() {
     nextPlace = video.endPos;
