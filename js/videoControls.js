@@ -1,12 +1,15 @@
 var BV;
 var statustext;
 var j_steps = 10;
-var v_steps = 0.2;
+var v_steps = 1;
 
-var volume    = 0;
+var volume    = 5;
 var nextPlace = 0;
 var prevPlace = 0;
 var lastMenuItem = "";
+
+
+var introplayed = false;
 
 
 
@@ -30,7 +33,26 @@ function initVideo() {
   BV.getPlayer().addEvent("loadeddata", loadedView);
   BV.getPlayer().addEvent("play", playView);
   BV.getPlayer().addEvent("pause", pauseView);
-  BV.getPlayer().addEvent("ended", endedView);
+
+  BV.getPlayer().addEvent("ended", function() {
+    if (introplayed) {
+      endedView();
+    }
+    else {
+      gotoMainMenu();
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+  //BV.getPlayer().addEvent("ended", endedView);
   //BV.getPlayer().addEvent("timeupdate", bufferVideo);
   BV.getPlayer().addEvent("loadstart", function() {
     statustext.css("display","block");
@@ -38,7 +60,7 @@ function initVideo() {
     $('#big-video-control-progress').width(0);
   });
 
-  $("#big-video-control-middle").append("<div id='control_next'>Weiter</div>");
+  //$("#big-video-control-middle").append("<div id='control_next'>Weiter</div>");
 
 
 }
@@ -51,7 +73,6 @@ function docustart(video_id) {
 
   //initialise first Video
   var videoUrl = 'vids/'+videos[video_id].media;
-  console.log(videos[video_id]);
 
   nextPlace = videos[video_id].endPos;
   prevPlace = videos[video_id].startPos;
@@ -59,6 +80,7 @@ function docustart(video_id) {
   BV.show(videoUrl,{ambient:false, altSource:'vids/river.ogv'});
   $("#big-video-wrap").show();
   $("#big-video-control-container").show();
+  $(".side_nav").show();
 
   /* Mouse-Click-Event
   $('body').on("click", function() {
@@ -71,11 +93,7 @@ function docustart(video_id) {
   });*/
 
   $("#button_mainmenu").on("click", function() {
-    $("#startmenu").fadeIn("slow");
-    $("#big-video-wrap").hide();
-    $("#big-video-control-container").hide();
-    showStatus('');
-    BV.getPlayer().pause();
+    gotoMainMenu();
   });
   $("#button_next").on("click", function() {
     showLinkedVideos(nextPlace);
@@ -91,7 +109,15 @@ function docustart(video_id) {
 
 
 
+function startIntro() {
 
+  //initialise first Video
+  var videoUrl = 'vids/13_10_10TRAILER_Intro.mp4';
+
+  BV.show(videoUrl,{ambient:false, altSource:'vids/river.ogv'});
+  $("#big-video-wrap").show();
+  $("#big-video-control-container").show();
+}
 
 
 
@@ -133,8 +159,8 @@ $(document).keydown(function(e){
         break;
       
       case $.ui.keyCode.ESCAPE:
-        showLinkedVideos(nextPlace);
-        showStatus("");
+        //showLinkedVideos(nextPlace);
+        gotoMainMenu();
         break;
       
       case $.ui.keyCode.SPACE:
@@ -223,9 +249,11 @@ function showLinkedVideos(place) {
 
 function initListItem2(video) {
   link = $("<p>");
-  link.text(video.title);
+  link.text((video.title).toUpperCase());
   link.attr("endpos",video.endPos);
   //console.log(video);  
+  $("#big-video-wrap").hide();
+  $("#big-video-control-container").hide();
 
   link.click(function() {
     //console.log(link);
@@ -236,6 +264,8 @@ function initListItem2(video) {
     BV.getPlayer().volume(volume);
     //BV.getPlayer().pause();
     //BV.getPlayer().addEvent("progress", bufferVideo);
+    $("#big-video-wrap").show();
+    $("#big-video-control-container").show();
   })
   return link;
 }
@@ -244,11 +274,16 @@ function initListItem2(video) {
 
 
 
-
-
-
-
-
+function gotoMainMenu() {
+  $("#menupic").animate({opacity:1},2000);
+  $("#startmenu").fadeIn("slow");
+  $("#big-video-wrap").hide();
+  $("#big-video-control-container").hide();
+  $(".side_nav").hide();
+  $('#audio').get(0).play(); // .animate({volume: 100}, 1000)
+  showStatus('');
+  BV.getPlayer().pause();
+}
 
 
 

@@ -139,7 +139,7 @@ var videos = [
 	{
 		id: 16,
 		startPos: [12,13],
-		endPos: 14,
+		endPos: 0,
 		title: 'Entertainment Club Choclate besuchen',
 		text: 'Choclate Club Clip',
 		media: '13_10_7ChocolateNTON.mp4'

@@ -3,29 +3,26 @@ $(document).mousemove(function(e) {
     window.y = e.pageY;
 });
 
-jQuery(window).resize(function() {
-  resizeImage();
-});
 
-jQuery(document).ready(function($) {  
+
+
+
+
+
+$(window).load(function() {  
+
+  //sxsw.init();
 
   initVideo();
+  startIntro();
 
   $("#button_contact").click(function() {
     $("#impressum").toggle();
   })
 
-  $("#menupic").load(function() {
-    resizeImage();
-    resizeMap();
-    $(this).animate({opacity:1},2000);
-  });  
-
-  /*
-  $("area").click(function(){
-    $("#infopanel").fadeOut("slow")
-    $("#startmenu").fadeOut("slow",docustart());
-  });*/
+  resizeImage();
+  resizeMap();
+  //$("#menupic").animate({opacity:1},2000);
 
   $("area").click(function(){
 
@@ -37,7 +34,7 @@ jQuery(document).ready(function($) {
       lastMenuItem = title;
       // Video einbetten
       if ($(this).attr("media").substr(-3) == "jpg" || $(this).attr("media").substr(-3) == "gif") {
-        $("#infomedia").append("<img src='img/"+$(this).attr("media")+"'' >");
+        $("#infomedia").append("<img src='"+$(this).attr("media")+"'' >");
       }
       else if ($(this).attr("media").substr(-3) == "mp4") {
         var $v_preview = $("<video autoplay loop>");
@@ -57,6 +54,13 @@ jQuery(document).ready(function($) {
   $("#infopanel").on( "click", function() {
     $("#infopanel").fadeOut("slow")
     $("#startmenu").fadeOut("slow",docustart($("#infopanel").attr("vid")));
+    $('#audio').get(0).pause();
+  });
+
+
+  $(window).resize(function() {
+    resizeImage();
+    resizeBackgroundimage(sxsw);
   });
 
 });

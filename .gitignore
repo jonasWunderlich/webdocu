@@ -79,6 +79,7 @@ build/
 *.scc
 *.mov
 *.mp4
+*.mp3
 *.ogv
 *.m4v
 *.jpg

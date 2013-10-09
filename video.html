@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="js/bib/video-js/video-js.css">
+	<link rel="stylesheet" href="css/bigvideo.css">
+  	<link rel="stylesheet" type="text/css" href="css/style.css">
+	
+
+	<script src="js/bib/jquery-2.0.3.min.js"></script>
+  	<script src="js/bib/jquery-ui-1.10.1.custom.min.js"></script>
+  	<script src="js/bib/jquery.imagesloaded.min.js"></script>
+  	<script src="js/bib/video-js/video.js"></script>
+	<script src="js/bib/bigvideo.js"></script>
+  	
+  	<script src="js/data_edit1.js"></script>
+  	<script src="js/cookieData.js"></script>
+  	<script src="js/videoControls.js"></script>
+	<script src="js/init.js"></script>
+	<script src="js/bgimage.js"></script>
+	<!--<script type="text/javascript" src="js/video.js"></script>-->
+</head>
+
+<body> 
+
+	<!--<img id="picpic" src="img/hochhaus_intro_1.jpg" border="0" >-->
+
+  	<!-- Menübuttons -->
+  	<div class="side_nav" id="button_mainmenu">
+    	<div class="s_title" >Menü</div>
+  	</div>
+  	<div class="side_nav" id="button_next">
+    	<div class="s_title" >Weiter</div>
+  	</div>
+  	<div class="side_nav" id="button_back">
+    	<div class="s_title" >Zürück</div>
+  	</div>
+
+  	<!-- Video-Statuscontrol -->
+	<div style="text-align:center"> 
+	  <div id="p_status"></div>
+	  <div id="content"></div>
+	</div> 
+
+
+	<!-- Mainmenu-Backpic -->
+	<div id="startmenu" class="wraptocenter">
+	  	<img id="menupic" src="img/hochhaus_intro_2.jpg" hidefocus="true" width="100%" border="0" alt="Menü" usemap="#start_map">
+	  	<map id="map_ID" name="start_map">
+
+	  		<area class="r1" href="#route1" shape="poly" border="0" width="100%" vid="25" media="vids/introgifs/Uwe_2.gif" alt='Deutsche treffen sich in Schindlers Anlegestelle' title='' coords="78,497,81,681,237,722,338,667,339,471,205,471" />
+
+	  		<area class="r2" href="#route2" shape="poly" border="0" width="100%" vid="36" media="vids/introgifs/Tanzplatz_1.gif" alt="Abends tanze ich auf dem Platz vor der Post" title="" coords="801,612,801,730,955,733,959,603" />
+
+	  		<area class="r3" href="#route3" shape="poly" border="0" width="100%" vid="10" media="vids/introgifs/modells.gif" alt="Wir modeln auf der Chic Beijing" title="" coords="1020,902,1197,911,1193,726,1009,730" />
+
+	  		<area class="r4" href="#route4" shape="poly" border="0" width="100%" vid="20" media="vids/introgifs/Maler_6.gif" alt="Ich lebe und arbeite in der 798 Artzone" title="" coords="1216,497,1214,618,1468,621,1471,489" />
+
+	  		<area class="r5" href="#route5" shape="poly" border="0" width="100%" vid="0" media="vids/introgifs/Maedchen_1.gif" alt="In der freien Bibliothek können wir kostenlos Bücher lesen" title="" coords="1348,1077,1341,874,1535,874,1684,1073" />
+
+		</map>	
+	</div>
+
+
+	<!-- Infopanel-Popup -->
+	<div id="infopanel">
+		<div id="infomedia"></div>
+		<p id="infotitle"></p>
+	</div>
+
+	<audio id="audio" loop>
+	  <source src="audio/Macabre_City_Kurz.mp3" type="audio/mpeg">
+	  <!--<source src="horse.ogg" type="audio/ogg">-->
+	  <embed height="50" width="100" src="audio/Macabre_City_Kurz.mp3">
+	</audio>
+
+</body> 
+</html>
+

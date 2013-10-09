@@ -6,7 +6,7 @@ function getVolume() {
   }
   else {
     // StartVolume
-    return 0.6;
+    return 5;
   }
 }
 

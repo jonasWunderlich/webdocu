@@ -34,11 +34,13 @@ body {
   user-select: none;
 }
 .links p {
-  font-size: 1.2em;/*1.4em;*/
-  background-color: rgba(255, 255, 255, 0.71);
-  cursor:pointer;
-  padding:.4em;
-  margin: 7px;
+  font-size: 1.3em;
+  background-color: rgba(0, 0, 0, 0.82);
+  cursor: pointer;
+  padding: .7em;
+  margin: 6px;
+  font-weight: 500;
+  color: #FFF;
 }
 .links p:hover {
   background:rgba(246, 255, 144, 0.71);
@@ -192,4 +194,25 @@ body {
   top: -50px;
   color: #FFF;
 }
+
+
+
+.bgmenu {
+  background-image: url("img/hochhaus_intro_1.jpg");
+}
+
+
+#picpic {
+  z-index: 2;
+  position: fixed;
+}
+
+#menupic {
+  opacity: 0;
+}
+
+
+
+.side_nav {
+  display:none;
 }

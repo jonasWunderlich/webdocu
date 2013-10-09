@@ -2,10 +2,10 @@
 <html> 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="js/bib/video-js/video-js.css">
 	<link rel="stylesheet" href="css/bigvideo.css">
-  	<link rel="stylesheet" type="text/css" href="css/style.css">
+  	<link rel="stylesheet" type="text/css" href="css/indexstyle.css">
 	
 
 	<script src="js/bib/jquery-2.0.3.min.js"></script>
@@ -14,15 +14,15 @@
   	<script src="js/bib/video-js/video.js"></script>
 	<script src="js/bib/bigvideo.js"></script>
   	
-
-  	<script src="js/data_edit.js"></script>
-  	<script src="js/cookieData.js"></script>
-  	<script src="js/videoControls.js"></script>
-	<script src="js/init.js"></script>
+  	<script type="text/bgimage" src="js/video.js"></script>
+	<script src="js/bgimage.js"></script>
+	<script src="js/index.js"></script>
 	<!--<script type="text/javascript" src="js/video.js"></script>-->
 </head>
 
 <body> 
+
+	
 
 	<!-- Impressum -->
 	<div id="button_contact">
@@ -50,48 +50,21 @@
 		</div>
   	</div>
 
-  	<!-- Menübuttons -->
-  	<div class="side_nav" id="button_mainmenu">
-    	<div class="s_title" >Menü</div>
-  	</div>
-  	<div class="side_nav" id="button_next">
-    	<div class="s_title" >Weiter</div>
-  	</div>
-  	<div class="side_nav" id="button_back">
-    	<div class="s_title" >Zürück</div>
+
+  	<h2 id="indextitle">METROPOLIS BEIJING</h2>
+
+  	<div id="content">
+  	<h2>Story</h2>
+  	<p>Edgar Rosenthal, 41 Jahre alt, ist seit 18 Jahren festangestellter Redakteur der Herbeninger Allgemeinen.<br/> Er kennt Beijing aus den Meldungen der Presseagenturen, die er in knappe Zeitungsartikel zusammenfasst. Mit einer Mischung aus Neid und Bewunderung hat er Zeit seines Lebens auf die in Beijing lebenden Auslandskorrespondenten geblickt. Aber warum schreiben sie immer nur über den Mainstream? Er beschließt selbst nach Beijing zu fliegen.<br/> Dabei will er auf Hilfsmittel wie Stadtführer oder Navigationsgeräte verzichten. Nur die Ratschläge der Großstadtbewohner sollen ihn durch die Metropole führen.</p>
   	</div>
 
-  	<!-- Video-Statuscontrol -->
-	<div style="text-align:center"> 
-	  <div id="p_status"></div>
-	  <div id="content"></div>
-	</div> 
+  	<div id="navbottom">
+  		<p id="videogo" class="indexbutton">START</p>
+  		<p class="indexbutton subutton">STORY</p>
+	  	<p class="indexbutton subutton">ABOUT</p>
+  	</div>
 
-
-	<!-- Mainmenu-Backpic -->
-	<div id="startmenu" class="wraptocenter">
-	  	<img id="menupic" src="img/hochhaus_intro_2.jpg" hidefocus="true" width="100%" border="0" alt="Menü" usemap="#start_map">
-	  	<map id="map_ID" name="start_map">
-
-	  		<area class="r1" href="#route1" shape="poly" border="0" width="100%" vid="25" media="vids/INTRO/13_10_8UweIntro.mp4" alt='Deutsche treffen sich in "Schindlers Anlegestelle".' title='' coords="78,497,81,681,237,722,338,667,339,471,205,471" />
-
-	  		<area class="r2" href="#route2" shape="poly" border="0" width="100%" vid="0" media="vids/INTRO/13_10_8ntroBildTanzplatz.mp4" alt="Tanzplatz besuchen" title="" coords="801,612,801,730,955,733,959,603" />
-
-	  		<area class="r3" href="#route3" shape="poly" border="0" width="100%" vid="10" media="vids/INTRO/13_10_8IntroBildModells.mp4" alt="Models abziehen" title="" coords="1020,902,1197,911,1193,726,1009,730" />
-
-	  		<area class="r4" href="#route4" shape="poly" border="0" width="100%" vid="20" media="vids/INTRO/13_10_8ntroBildMaler.mp4" alt="798 Arzone" title="" coords="1216,497,1214,618,1468,621,1471,489" />
-
-	  		<area class="r5" href="#route5" shape="poly" border="0" width="100%" vid="0" media="vids/INTRO/13_10_8IntroMaedchenchen.mp4" alt="Engliche Bibliothek besuchen" title="" coords="1348,1077,1341,874,1535,874,1684,1073" />
-
-		</map>	
-	</div>
-
-
-	<!-- Infopanel-Popup -->
-	<div id="infopanel">
-		<div id="infomedia"></div>
-		<p id="infotitle"></p>
-	</div>
+	<img id="picpic" src="img/hochhaus_intro_1.jpg" border="0" style="z-index:-66">
 
 </body> 
 </html>
