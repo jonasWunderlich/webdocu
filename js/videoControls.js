@@ -1,55 +1,90 @@
-var BV = new $.BigVideo({useFlashForFirefox:false});
-statustext = $("<p>");
-statustext.text("loading...");
-statustext.addClass('p_status');
-
+var BV;
+var statustext;
 var j_steps = 10;
 var v_steps = 0.2;
 
+var volume    = 0;
+var nextPlace = 0;
+var prevPlace = 0;
+var lastMenuItem = "";
 
 
 
 
 
-function docustart() {
+function initVideo() {
 
-    $("content").show();
-    $("#big-video-wrap").show();
+  //initialise Statusbox
+  $("#p_status").append($(statustext));
+  statustext = $("<p>");
+  statustext.text("loading...");
+  statustext.addClass('p_status');
+  statustext.css("top",(($(window).height() - statustext.height())/2)+"px");
 
-        //initialise Statusbox
-    $("#p_status").append($(statustext));
-    statustext.css("top",(($(window).height() - statustext.height())/2)+"px");
-    
-    //initialise first Video
-    BV.init();
+  BV = new $.BigVideo({useFlashForFirefox:false});
+  BV.init();
+  var volume = 0 //getVolume();
+  BV.getPlayer().volume(volume);
+  BV.getPlayer().loop(false);
+  //initialise eventListeners    
+  BV.getPlayer().addEvent("loadeddata", loadedView);
+  BV.getPlayer().addEvent("play", playView);
+  BV.getPlayer().addEvent("pause", pauseView);
+  BV.getPlayer().addEvent("ended", endedView);
+  //BV.getPlayer().addEvent("timeupdate", bufferVideo);
+  BV.getPlayer().addEvent("loadstart", function() {
+    statustext.css("display","block");
+    statustext.text("lädt");
+    $('#big-video-control-progress').width(0);
+  });
 
-    var firstVideoUrl = 'vids/'+videos[0].media;
-    nextPlace = videos[0].endPos;
-    prevPlace = videos[0].startPos;
+  $("#big-video-control-middle").append("<div id='control_next'>Weiter</div>");
 
-    BV.show(firstVideoUrl,{ambient:false, altSource:'vids/river.ogv'});
 
-    //BV.show('vids/river.mp4',{ambient:false, altSource:'vids/river.ogv'});
-    var volume = getVolume();
-    BV.getPlayer().volume(volume);
-    BV.getPlayer().loop(false);
-    //BV.getPlayer().pause();
-            
-    //initialise eventListeners    
-    //BV.getPlayer().addEvent("timeupdate", bufferVideo);
-    BV.getPlayer().addEvent("loadeddata", loadedView);
-    BV.getPlayer().addEvent("play", playView);
-    BV.getPlayer().addEvent("pause", pauseView);
-    BV.getPlayer().addEvent("ended", showLinkedVideos);
-    
-    BV.getPlayer().addEvent("loadstart", function() {
-      statustext.css("display","block");
-      statustext.text("lädt");
-      $('#big-video-control-progress').width(0);
-    });
-   
-    // Mouse-Click-Event
-    $("#big-video-wrap").click(pause);
+}
+
+
+
+
+
+function docustart(video_id) {
+
+  //initialise first Video
+  var videoUrl = 'vids/'+videos[video_id].media;
+  console.log(videos[video_id]);
+
+  nextPlace = videos[video_id].endPos;
+  prevPlace = videos[video_id].startPos;
+
+  BV.show(videoUrl,{ambient:false, altSource:'vids/river.ogv'});
+  $("#big-video-wrap").show();
+  $("#big-video-control-container").show();
+
+  /* Mouse-Click-Event
+  $('body').on("click", function() {
+    if (BV.getPlayer().paused()) {
+      BV.getPlayer().play();
+    }    
+    else {
+      BV.getPlayer().pause();
+    }
+  });*/
+
+  $("#button_mainmenu").on("click", function() {
+    $("#startmenu").fadeIn("slow");
+    $("#big-video-wrap").hide();
+    $("#big-video-control-container").hide();
+    showStatus('');
+    BV.getPlayer().pause();
+  });
+  $("#button_next").on("click", function() {
+    showLinkedVideos(nextPlace);
+    showStatus("");
+  });
+  $("#button_back").on("click", function() {
+    showLinkedVideos(prevPlace);
+    showStatus("");
+  });
 }
 
 
@@ -83,14 +118,12 @@ function pause() {
 
 // Keyboard events
 $(document).keydown(function(e){
-  statustext.css("display","block");
-  
+  statustext.css("display","block");  
   var duration = BV.getPlayer().duration();
   var c_time = BV.getPlayer().currentTime();
   var vol = BV.getPlayer().volume();
   
-  //alert(e.keyCode);
-  
+  //alert(e.keyCode);  
   switch(e.which) {
     
       case $.ui.keyCode.ENTER:
@@ -100,11 +133,12 @@ $(document).keydown(function(e){
         break;
       
       case $.ui.keyCode.ESCAPE:
-        showLinkedVideos();
+        showLinkedVideos(nextPlace);
         showStatus("");
         break;
       
       case $.ui.keyCode.SPACE:
+        //$("#big-video-control-container").toggle();
         pause();
         break;
   
@@ -145,6 +179,10 @@ function pauseView() {
   $('#big-video-control-play').css('background-position','0px');
 }
 
+function endedView() {
+  showLinkedVideos(nextPlace);
+}
+
 function showStatus(text,fade) {
   statustext.text(text);
   if(fade)
@@ -153,40 +191,31 @@ function showStatus(text,fade) {
 
   
 // Menu for next Videos
-function showLinkedVideos() {
+function showLinkedVideos(place) {
   $('#big-video-control-play').css('background-position','0px');
   $('.links').remove();
   BV.getPlayer().pause();
-  $("#big-video-control-container").hide();
+  //$("#big-video-control-container").toggle();
   var links = $("<div>");
   links.addClass("links");
 
   for(var i=0; i<videos.length; i++) {
-    startPositions = videos[i].startPos;    
+    startPositions = videos[i].startPos;  
     if (startPositions.length == undefined) {
-      if (nextPlace == videos[i].startPos) {
+      if (place == videos[i].startPos) {
         links.append($(initListItem2(videos[i])));
       }
     }
     else {
       for(var s=0; s<startPositions.length; s++) {
-        if (nextPlace == startPositions[s]) {
-          links.append($(initListItem2(videos[s])));
+        if (place == startPositions[s]) {
+          links.append($(initListItem2(videos[i])));
         }
       }
     }
-
   }
 
-  var menu_link = $("<p>");
-  menu_link.text("Menü");
-  menu_link.addClass("link_mainmenu")
-  links.append(menu_link);
-  menu_link.on( "click", function() {
-      $("#startmenu").fadeIn("slow");
-      $("content").hide();
-      $("#big-video-wrap").hide();
-  });
+  //console.log(places[nextPlace]);
 
   $("#content").append($(links)); 
   links.css("top",(($(window).height() - links.height())/2-40)+"px");
@@ -195,9 +224,12 @@ function showLinkedVideos() {
 function initListItem2(video) {
   link = $("<p>");
   link.text(video.title);
+  link.attr("endpos",video.endPos);
+  //console.log(video);  
 
   link.click(function() {
-    nextPlace = video.endPos;
+    //console.log(link);
+    nextPlace = $(this).attr("endPos");
     prevPlace = video.startPos;
     $('.links').remove();
     BV.show('vids/'+video.media,{ambient:false});
@@ -207,6 +239,19 @@ function initListItem2(video) {
   })
   return link;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -15,7 +15,7 @@
 	<script src="js/bib/bigvideo.js"></script>
   	
 
-  	<script src="js/data.js"></script>
+  	<script src="js/data_edit.js"></script>
   	<script src="js/cookieData.js"></script>
   	<script src="js/videoControls.js"></script>
 	<script src="js/init.js"></script>
@@ -25,28 +25,24 @@
 <body> 
 
 	<!-- Impressum -->
-	<div id="fastcontact">
-    	<div class="mail" >@</div>
-      	<div>Contact</div>
-      	<p class="line"></p>
-      	<div>Imprint</div>
+	<div id="button_contact">
+    	<div class="s_title" >@</div>
+      	<div class="s_info">Contact</div>
+      	<p   class="line"></p>
+      	<div class="s_info">Imprint</div>
         <div id="impressum">
 		    <div class="content" >
 		      	<p><strong>jELM</strong></p>
-				<p>Louisenstraße 48 HH<br />
-				01099 Dresden</p>
+				<p>Louisenstraße 48 HH<br/>01099 Dresden</p>
 				<p>ID Nr. XXXXXXXX</p>
-				<p><a href="mailto:info@metropolisbeijing.com">info@metropolisbeijing.com</a><br />
-				+49.00.0000 00 00</p>
-				<p>Verantwortlich für den Inhalt:<br />
-				jELM</p>
+				<p><a href="mailto:info@metropolisbeijing.com">info@metropolisbeijing.com</a><br/>+49.00.0000 00 00</p>
+				<p>Verantwortlich für den Inhalt:<br/>jELM</p>
 				<h4>DESIGN</h4>
 				<p>jELM</p>
 				<h4>UMSETZUNG</h4>
 				<p>jELM</p>
 				<h4>HAFTUNGSHINWEIS</h4>
-				<p>Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links.<br />
-				Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+				<p>Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links.<br/>Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
 				<h4>DATENSCHUTZ</h4>
 				<p>Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder eMail-Adressen) erhoben werden, erfolgt dies soweit möglich stets auf freiwilliger Basis. </p>
 				<p>Die Nutzung der Angebote und Dienste ist, soweit möglich, stets ohne Angabe personenbezogener Daten möglich. Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich. Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten durch Dritte zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit ausdrücklich widersprochen. Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-Mails, vor..</p>
@@ -54,11 +50,16 @@
 		</div>
   	</div>
 
-  	<!-- Menübutton -->
-  	<div id="button_mainmenu">
-    	<div class="button" >Menü</div>
+  	<!-- Menübuttons -->
+  	<div class="side_nav" id="button_mainmenu">
+    	<div class="s_title" >Menü</div>
   	</div>
-
+  	<div class="side_nav" id="button_next">
+    	<div class="s_title" >Weiter</div>
+  	</div>
+  	<div class="side_nav" id="button_back">
+    	<div class="s_title" >Zürück</div>
+  	</div>
 
   	<!-- Video-Statuscontrol -->
 	<div style="text-align:center"> 
@@ -69,18 +70,18 @@
 
 	<!-- Mainmenu-Backpic -->
 	<div id="startmenu" class="wraptocenter">
-	  	<img id="menupic" src="img/hochhaus_intro_2.jpg" width="100%" border="0" alt="Menü" usemap="#start_map">
+	  	<img id="menupic" src="img/hochhaus_intro_2.jpg" hidefocus="true" width="100%" border="0" alt="Menü" usemap="#start_map">
 	  	<map id="map_ID" name="start_map">
 
-	  		<area class="r1" href="#route1" shape="poly" border="0" width="100%" media="13_10_7UweIntroBild.mp4" alt='Deutsche treffen sich in "Schindlers Anlegestelle".' title='' coords="78,497,81,681,237,722,338,667,339,471,205,471" />
+	  		<area class="r1" href="#route1" shape="poly" border="0" width="100%" vid="25" media="vids/INTRO/13_10_8UweIntro.mp4" alt='Deutsche treffen sich in "Schindlers Anlegestelle".' title='' coords="78,497,81,681,237,722,338,667,339,471,205,471" />
 
-	  		<area class="r2" href="#route2" shape="poly" border="0" width="100%" media="13_10_7IntroBildTanzplatz.mp4" alt="Tanzplatz besuchen" title="" coords="801,612,801,730,955,733,959,603" />
+	  		<area class="r2" href="#route2" shape="poly" border="0" width="100%" vid="0" media="vids/INTRO/13_10_8ntroBildTanzplatz.mp4" alt="Tanzplatz besuchen" title="" coords="801,612,801,730,955,733,959,603" />
 
-	  		<area class="r3" href="#route3" shape="poly" border="0" width="100%" media="13_10_7IntroBildModells.mp4" alt="Models abziehen" title="" coords="1020,902,1197,911,1193,726,1009,730" />
+	  		<area class="r3" href="#route3" shape="poly" border="0" width="100%" vid="10" media="vids/INTRO/13_10_8IntroBildModells.mp4" alt="Models abziehen" title="" coords="1020,902,1197,911,1193,726,1009,730" />
 
-	  		<area class="r4" href="#route4" shape="poly" border="0" width="100%" media="galerie.jpg" alt="798 Arzone" title="" coords="1216,497,1214,618,1468,621,1471,489" />
+	  		<area class="r4" href="#route4" shape="poly" border="0" width="100%" vid="20" media="vids/INTRO/13_10_8ntroBildMaler.mp4" alt="798 Arzone" title="" coords="1216,497,1214,618,1468,621,1471,489" />
 
-	  		<area class="r5" href="#route5" shape="poly" border="0" width="100%" media="bibo.jpg" alt="Engliche Bibliothek besuchen" title="" coords="1348,1077,1341,874,1535,874,1684,1073" />
+	  		<area class="r5" href="#route5" shape="poly" border="0" width="100%" vid="0" media="vids/INTRO/13_10_8IntroMaedchenchen.mp4" alt="Engliche Bibliothek besuchen" title="" coords="1348,1077,1341,874,1535,874,1684,1073" />
 
 		</map>	
 	</div>

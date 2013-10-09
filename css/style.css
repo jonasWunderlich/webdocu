@@ -68,8 +68,9 @@ body {
 .wraptocenter * {
 }
 
-#menupic {
-  opacity: 0;
+#map_ID area {
+  outline:none !important;
+  border: none !important;
 }
 
 #infopanel {
@@ -97,16 +98,29 @@ body {
 
 
 
-#fastcontact,
-#button_mainmenu {
+#button_contact,
+.side_nav {
   position: absolute;
   top: 3em;
   right: 0;
   text-align: center;
   z-index: 40;
+  cursor: pointer;
 }
-#fastcontact > div, #fastcontact .line,
-#button_mainmenu > div, #button_mainmenu .line {
+
+#button_mainmenu {
+  top: 10em;
+}
+#button_back {
+  top: 15em;
+}
+#button_next {
+  top: 20em;
+}
+
+
+
+.s_info, .line {
   text-decoration: none;
   color: #FFF;
   margin: 0;
@@ -115,12 +129,11 @@ body {
   display: block;
   line-height: 1em;
 }
-#fastcontact .line {
+.line {
   margin-left: .8em;
   padding:0;
 }
-#fastcontact > div.mail,
-#button_mainmenu > div.button {
+.s_title {
   padding: .5em;
   background: #FFF;
   color: #000;
@@ -128,10 +141,11 @@ body {
   font-size: 1em;
   margin-bottom: .2em;
 }
-#fastcontact #impressum {
-  display: none;
+
+#impressum {
   width: 350px;
   z-index: 50;
+  display: none;
   position: fixed;
   right: 0;
   background: #2B2B2B;
@@ -142,22 +156,22 @@ body {
   line-height: 1.2em;
   font-weight: 300;
 }
-#fastcontact #impressum strong{
+#impressum strong{
   font-weight: 600;
   font-size: 1.2em;
 }
-#fastcontact #impressum p{
+#impressum p{
   color: #FFF;
 }
-#fastcontact #impressum h4{
+#impressum h4{
   margin: 0;
 }
-#fastcontact #impressum a{
+#impressum a{
   font-weight: 600;
   font-size: 1.3em;
   color: #A8A8A8;
 }
-#fastcontact #impressum a:hover{
+#impressum a:hover{
   color: #5AA9FF;
 }
 
@@ -171,6 +185,11 @@ body {
   background: #FFF;
 }
 
-#button_mainmenu {
-  top: 10em;
+
+
+#control_next {
+  position: absolute;
+  top: -50px;
+  color: #FFF;
+}
 }

@@ -1,9 +1,3 @@
-var volume    = 0;
-var nextPlace = 0;
-var prevPlace = 0;
-var lastMenuItem = "";
-
-
 $(document).mousemove(function(e) {
     window.x = e.pageX;
     window.y = e.pageY;
@@ -15,8 +9,9 @@ jQuery(window).resize(function() {
 
 jQuery(document).ready(function($) {  
 
-  $("#fastcontact").click(function() {
-    console.log("sdf");
+  initVideo();
+
+  $("#button_contact").click(function() {
     $("#impressum").toggle();
   })
 
@@ -41,15 +36,19 @@ jQuery(document).ready(function($) {
       $("#infotitle").text(title);
       lastMenuItem = title;
       // Video einbetten
-      if ($(this).attr("media").substr(-3) == "jpg") {
+      if ($(this).attr("media").substr(-3) == "jpg" || $(this).attr("media").substr(-3) == "gif") {
         $("#infomedia").append("<img src='img/"+$(this).attr("media")+"'' >");
       }
       else if ($(this).attr("media").substr(-3) == "mp4") {
-        var $v_preview = "<video autoplay loop><source src='vids/"+$(this).attr("media")+"' type='video/mp4' /></video>"
+        var $v_preview = $("<video autoplay loop>");
+        $v_preview.attr("id","previewvideo");
+        $v_preview.append("<source src='"+$(this).attr("media")+"' type='video/mp4' />");
         $("#infomedia").append($v_preview);
       }
+
       // Panel platzieren
       $("#infopanel").css({"margin-left": (x-50), "margin-top":(y-250)});
+      $("#infopanel").attr("vid",$(this).attr("vid"));
       // Panel einblenden
       $("#infopanel").fadeIn("slow");
     }
@@ -57,16 +56,8 @@ jQuery(document).ready(function($) {
 
   $("#infopanel").on( "click", function() {
     $("#infopanel").fadeOut("slow")
-    $("#startmenu").fadeOut("slow",docustart());
+    $("#startmenu").fadeOut("slow",docustart($("#infopanel").attr("vid")));
   });
-
-  $("#button_mainmenu").on( "click", function() {
-      $("#startmenu").fadeIn("slow");
-      $("#big-video-wrap").hide();
-      $("#big-video-control-container").hide();
-      BV.getPlayer().pause();
-  });
-
 
 });
 
@@ -120,43 +111,16 @@ function resizeMap () {
 
 
 
+/*
+window.onload = function() {
+  var pElement = document.getElementById("myVideo");
 
+  setTimeout(function() {
+    pElement.load();
+    setTimeout(function() {
+      pElement.play();
+    }, 500);
+  }, 500);
 
-
-
-
-  
-
-  
-
-
-
-  
-
-  
-  
-
-  
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+};
+*/
